@@ -12,11 +12,13 @@ public class Battleship_main {
 		
 		bt_game.setShipPosition(ships);
 		
-		String shot = "4";
+		String shot = "2";
 		
-		bt_game.getShipPosition();
+//		bt_game.getShipPosition();
+	
+		String shot_result = bt_game.check(shot);
 		
+		System.out.println(shot_result);
 		
 	}
-
 }
