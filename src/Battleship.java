@@ -24,8 +24,10 @@ class Battleship {
 			if (shot == area)
 			{
 				result = "Trafiony";
+				break;
 			}
 		}
+		System.out.println(result);
 		
 		return result;
 	}
