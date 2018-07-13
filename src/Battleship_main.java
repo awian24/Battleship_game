@@ -30,7 +30,7 @@ public class Battleship_main {
 			String shot = download.inputDate("Podaj liczbê");
 			String shot_result = bt_game.check(shot);
 			
-			if(shot_result.equals("zatopiony"))
+			if(shot_result.equals("Zatopiony"))
 			{
 				czyIstnieje = false;
 				System.out.println("Koniec gry !!!");
