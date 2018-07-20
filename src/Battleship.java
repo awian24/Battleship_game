@@ -1,109 +1,57 @@
-import java.util.ArrayList;
+import java.util.*;
 
-class Battleship {
-
-	private ArrayList<String> shipPosition;
-	private ArrayList<String> shotPosition = new ArrayList<String>();
-	private int shipHit;
-	private int boardTable[] = new int[10];
-
-	public void setShipPosition(ArrayList<String> sh)
-	{
-		shipPosition = sh;
-	}
+public class Battleship {
 	
-	public void getShipPosition()
-	{
-//		System.out.println(shipPosition[1]);
-	}
-
-	public void drawBoard()
-	{
-		// Tablica do wyœwitlenia
-		// -1 - pud³o
-		//  0 - brak strza³u
-		//  1 - trafiony
-		//  2 - zatopiony ???
-
-		System.out.println("  ");
-		System.out.println("  A B C D E F G H I J ");
-		System.out.print("1 ");
-		
-	}
+	private DownloadSigns download = new DownloadSigns();
+	private LotteryShips lottery = new LotteryShips();
+	private ArrayList<Ship> shipList = new ArrayList<Ship>();
+	private int moveCounter = 0;
 	
-	public String check(String string_shot)
+	private void initGame()
 	{
-		String result = "Pud³o";
+		System.out.println("Start...");
+		Ship newShip = new Ship();
+		shipList.add(newShip);
 		
-		if(shotPosition.contains(string_shot))
+		for(Ship addShip:shipList)
 		{
-			System.out.println("  ");
-			System.out.println("Ju¿ odda³eœ tu strza³. Strzelaj w inne pole !!!");
-			result = "!";
+			ArrayList<String> newPosition = lottery.arrangeShips(3);
+			addShip.setShipPosition(newPosition);
 		}
-		else
-		{
-			int shotInt = Integer.parseInt(string_shot);
-			
-			shotPosition.add(string_shot);
-			int shotPositionSize = shotPosition.size();
-			System.out.println("shotPositionSize: " + shotPositionSize);
 
-			for(int i=0; i<shotPositionSize; i++)
-			{
-				System.out.print(shotPosition.get(i) + ", ");
-			}
-			System.out.println(" ");
-		
-			int indeks = shipPosition.indexOf(string_shot);
-			
-			if(indeks >=0)
-			{
-				shipPosition.remove(indeks);
-				
-				if(shipPosition.isEmpty())
-				{
-					result = "Zatopiony";
-				}
-				else
-				{
-					result = "Trafiony";
-				}
-				boardTable[shotInt] = 1;
-			}
-			else
-			{
-				boardTable[shotInt] = -1;
-			}
-
-			System.out.println(result);
-			
-			drawBoard();
-			for(int i=0; i<10; i++)
-			{
-				//System.out.print(boardTable[i]);
-				if(boardTable[i] == 1)
-				{
-					System.out.print("x ");
-				}
-				else
-				{
-					if(boardTable[i] == -1)
-					{
-						System.out.print("o ");
-					}
-					else
-					{
-						System.out.print("- ");
-					}
-				}
-			}
-			System.out.println("  ");
-			System.out.println("  ");
-			System.out.println("  ");
-		}
-		
-		return result;
+		shipList.get(0).getShipPosition();
 	}
 	
+	private void startGame()
+	{
+		while(!shipList.isEmpty())
+		{
+			String shot = download.inputDate("Podaj pole: ");
+
+			checkShot(shot);
+		}
+//		endGame();
+	}
+	
+	private void checkShot(String shotUser)
+	{
+		moveCounter++;
+//		String result = "Pud³o";
+		
+			
+			String shot_result = shipList.get(0).check(shotUser);
+			if(shot_result.equals("Zatopiony"))
+			{
+				System.out.println("Koniec gry !!!");
+			}
+		
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Battleship game = new Battleship();
+		game.initGame();
+		game.startGame();		
+	}
 }
