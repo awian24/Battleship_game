@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.*;
 
 class DownloadSigns {
 
@@ -16,6 +17,6 @@ class DownloadSigns {
 			System.out.println("I0Exception: " + e);
 		}
 		
-		return wierszWej;
+		return wierszWej.toLowerCase();
 	}	
 }
