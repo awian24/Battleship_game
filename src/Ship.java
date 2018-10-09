@@ -5,7 +5,7 @@ class Ship {
 	private ArrayList<String> shipPosition;
 	private ArrayList<String> shotPosition = new ArrayList<String>();
 	private int shipHit;
-	private int boardTable[] = new int[10];
+	private int boardTable[][] = new int[10][10];
 
 	public void setShipPosition(ArrayList<String> sh)
 	{
