@@ -7,7 +7,7 @@ public class LotteryShips {
 	{
 		ArrayList<String> occupiedFields = new ArrayList<String>();
 		
-		occupiedFields.add("a2");
+		occupiedFields.add("c2");
 		occupiedFields.add("a3");
 		occupiedFields.add("a4");
 		

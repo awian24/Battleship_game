@@ -14,9 +14,19 @@ class Ship {
 	
 	public void getShipPosition()
 	{
-		System.out.println(shipPosition.get(1));
+//		System.out.println(shipPosition.get(1));
 	}
 
+	public void addToTable(ArrayList<String> pos)
+	{
+		for(int i=0;i<pos.size();i++)
+		{
+			System.out.println((pos.get(i).charAt(0)-97));
+			System.out.println((pos.get(i).charAt(1)-49));
+			boardTable[(pos.get(i).charAt(0)-97)][(pos.get(i).charAt(1)-49)] = 1;
+		}
+	}
+	
 	public void drawBoard()
 	{
 		// Tablica do wyœwitlenia
@@ -26,8 +36,39 @@ class Ship {
 		//  2 - zatopiony ???
 
 		System.out.println("  ");
-		System.out.println("  A B C D E F G H I J ");
-		System.out.print("1 ");
+		System.out.println("   A B C D E F G H I J ");
+		
+		boardTable[1][0] = 2;
+		boardTable[2][0] = 2;
+		boardTable[3][0] = 2;
+
+		for(int i=0; i<10;i++)
+		{
+			if(i==9)
+			{
+				System.out.print("10");
+			}
+			else
+			{
+				System.out.print(" " + (i+1) );
+			}
+			
+			for(int j=0; j<10;j++)
+			{
+				if(boardTable[j][i] == 1)
+				{
+					System.out.print(" #");
+				}
+				else
+				{
+					System.out.print(" -");
+				}
+						
+			}
+			System.out.println(" ");
+		}
+
+		System.out.println("  ");
 		
 	}
 	

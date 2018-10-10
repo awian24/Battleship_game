@@ -17,9 +17,11 @@ public class Battleship {
 		{
 			ArrayList<String> newPosition = lottery.arrangeShips(3);
 			addShip.setShipPosition(newPosition);
+			addShip.addToTable(newPosition);
 		}
 
 		shipList.get(0).getShipPosition();
+		newShip.drawBoard();
 	}
 	
 	private void startGame()
