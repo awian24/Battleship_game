@@ -4,8 +4,8 @@ class Ship {
 
 	private ArrayList<String> shipPosition;
 	private ArrayList<String> shotPosition = new ArrayList<String>();
-	private int shipHit;
-	private int boardTable[][] = new int[10][10];
+//	private int shipHit;
+
 
 	public void setShipPosition(ArrayList<String> sh)
 	{
@@ -17,61 +17,6 @@ class Ship {
 //		System.out.println(shipPosition.get(1));
 	}
 
-	public void addToTable(ArrayList<String> pos)
-	{
-		for(int i=0;i<pos.size();i++)
-		{
-			System.out.println((pos.get(i).charAt(0)-97));
-			System.out.println((pos.get(i).charAt(1)-49));
-			boardTable[(pos.get(i).charAt(0)-97)][(pos.get(i).charAt(1)-49)] = 1;
-		}
-	}
-	
-	public void drawBoard()
-	{
-		// Tablica do wyœwitlenia
-		// -1 - pud³o
-		//  0 - brak strza³u
-		//  1 - trafiony
-		//  2 - zatopiony ???
-
-		System.out.println("  ");
-		System.out.println("   A B C D E F G H I J ");
-		
-		boardTable[1][0] = 2;
-		boardTable[2][0] = 2;
-		boardTable[3][0] = 2;
-
-		for(int i=0; i<10;i++)
-		{
-			if(i==9)
-			{
-				System.out.print("10");
-			}
-			else
-			{
-				System.out.print(" " + (i+1) );
-			}
-			
-			for(int j=0; j<10;j++)
-			{
-				if(boardTable[j][i] == 1)
-				{
-					System.out.print(" #");
-				}
-				else
-				{
-					System.out.print(" -");
-				}
-						
-			}
-			System.out.println(" ");
-		}
-
-		System.out.println("  ");
-		
-	}
-	
 	public String check(String string_shot)
 	{
 		String result = "Pud³o";
@@ -139,9 +84,7 @@ class Ship {
 					}
 				}
 			}
-*/			System.out.println("  ");
-			System.out.println("  ");
-			System.out.println("  ");
+*/
 		}
 		
 		return result;
