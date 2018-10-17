@@ -2,16 +2,30 @@ import java.util.*;
 
 public class Battleship {
 	
-	private DownloadSigns download = new DownloadSigns();
-	private LotteryShips lottery = new LotteryShips();
+	
+	private static Battleship instance = null;
+
+	public static Battleship getInstance() {
+		return instance;
+	}
+	
+	
+//	private DownloadSigns download = new DownloadSigns();
+//	private LotteryShips lottery = new LotteryShips();
 	private ArrayList<Ship> shipList = new ArrayList<Ship>();
-	private DrawingBoard draw = new DrawingBoard();
-	private int moveCounter = 0;
+//	private DrawingBoard draw = new DrawingBoard();
+//	private int moveCounter = 0;
 	
 	private void initGame()
 	{
 		System.out.println("Start...");
-		Ship Ship_1 = new Ship();
+		
+		for(int i=0; i<3;i++)
+		{
+			shipList.add(new Ship());
+		}
+		
+/*		Ship Ship_1 = new Ship();
 //		Ship Ship_2 = new Ship();
 		shipList.add(Ship_1);
 //		shipList.add(Ship_2);
@@ -20,10 +34,10 @@ public class Battleship {
 		{
 			ArrayList<String> newPosition = lottery.arrangeShips(3);
 			addShip.setShipPosition(newPosition);
-		}
-		draw.drawBoard();
+		}*/
+//		draw.drawBoard();
 	}
-	
+/*	
 	private void startGame()
 	{
 		while(!shipList.isEmpty())
@@ -50,13 +64,23 @@ public class Battleship {
 			shipList.remove(shipList.get(0));
 		}
 	}
-	
+*/	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
 		Battleship game = new Battleship();
 		game.initGame();
-		game.startGame();
+//		game.startGame();
 		System.out.println("KONIEC GRY");
 	}
+
+	/*
+	 * Konstruktor klasy Battlehip
+	 */
+	
+	private Battleship(){
+		super();
+		instance = this;
+	}
+	
 }
