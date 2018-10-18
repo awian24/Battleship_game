@@ -1,4 +1,3 @@
-import java.util.*;
 
 public class Battleship {
 	
@@ -9,33 +8,10 @@ public class Battleship {
 		return instance;
 	}
 	
-	
-//	private DownloadSigns download = new DownloadSigns();
-//	private LotteryShips lottery = new LotteryShips();
-	private ArrayList<Ship> shipList = new ArrayList<Ship>();
-//	private DrawingBoard draw = new DrawingBoard();
-//	private int moveCounter = 0;
-	
 	private void initGame()
 	{
 		System.out.println("Start...");
 		
-		for(int i=0; i<3;i++)
-		{
-			shipList.add(new Ship());
-		}
-		
-/*		Ship Ship_1 = new Ship();
-//		Ship Ship_2 = new Ship();
-		shipList.add(Ship_1);
-//		shipList.add(Ship_2);
-		
-		for(Ship addShip:shipList)
-		{
-			ArrayList<String> newPosition = lottery.arrangeShips(3);
-			addShip.setShipPosition(newPosition);
-		}*/
-//		draw.drawBoard();
 	}
 /*	
 	private void startGame()
@@ -69,7 +45,6 @@ public class Battleship {
 		// TODO Auto-generated method stub
 
 		Battleship game = new Battleship();
-		game.initGame();
 //		game.startGame();
 		System.out.println("KONIEC GRY");
 	}
@@ -81,6 +56,7 @@ public class Battleship {
 	private Battleship(){
 		super();
 		instance = this;
+		initGame();
 	}
 	
 }

@@ -1,3 +1,4 @@
+import java.awt.Point;
 import java.util.*;
 
 public class LotteryShips {
