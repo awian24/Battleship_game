@@ -45,6 +45,9 @@ public class Battleship {
 		// TODO Auto-generated method stub
 
 		Battleship game = new Battleship();
+		Board board_game = new Board();
+		board_game.wyczyscPlansze();
+		board_game.rozkladLosowy();
 //		game.startGame();
 		System.out.println("KONIEC GRY");
 	}

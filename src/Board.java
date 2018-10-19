@@ -11,18 +11,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Random;
 
-import game.ElementyPlanszy;
-import game.RodzajeGraczy;
-import game.Statki;
-import game.WynikStrzalu;
-import game.Plansza.Kierunek;
-import network.GameEvent;
 
 public class Board {
 
 	private ElementyPlanszy[][] tablica = new ElementyPlanszy[15][15];
 
-	private RodzajeGraczy wlascicielPlanszy;
+//	private RodzajeGraczy wlascicielPlanszy;
 
 	private void zerowanieTablicy() {
 		for (int i = 0; i < tablica.length; i++) {
@@ -36,9 +30,46 @@ public class Board {
 		POZIOMO, PIONOWO
 	}
 
+	public void drawBoard()
+	{
+
+		System.out.println("  ");
+		System.out.println("   A B C D E F G H I J K L M N O");
+
+		for(int i=0; i<15;i++)
+		{
+			if(i>8)
+			{
+				System.out.print(i+1);
+			}
+			else
+			{
+				System.out.print(" " + (i+1) );
+			}
+			
+			for(int j=0; j<15;j++)
+			{
+				if(tablica[i][j] == ElementyPlanszy.STATEK)
+				{
+					System.out.print(" #");
+				}
+				else
+				{
+					System.out.print(" -");
+				}
+						
+			}
+			System.out.println(" ");
+		}
+
+		System.out.println("  ");
+		
+	}
+	
 	public void wyczyscPlansze() {
 		zerowanieTablicy();
-		repaint();
+		drawBoard();
+//		repaint();
 	}
 
 	public void rozkladLosowy() {
@@ -100,7 +131,8 @@ public class Board {
 					tablica[x][y + d] = ElementyPlanszy.STATEK;
 				}
 		}
-		repaint();
+		drawBoard();
+//		repaint();
 	}
 
 	public WynikStrzalu sprawdzStrzal(int x, int y) {
@@ -122,10 +154,10 @@ public class Board {
 			tablica[x][y] = ElementyPlanszy.STATEK_TRAFIONY;
 
 			if (w == WynikStrzalu.TRAFIONY_ZATOPIONY) {
-				zaznaczZatopiony(x, y);
+//				zaznaczZatopiony(x, y);
 			}
 		}
-		repaint();
+//		repaint();
 	}
 
 	private boolean sprawdzCzyZatopiony(int x, int y) {
@@ -155,7 +187,7 @@ public class Board {
 
 		return true;
 	}
-
+/*
 	private void zaznaczZatopiony(int x, int y) {
 		int x1 = x;
 		int x2 = x;
@@ -247,7 +279,7 @@ public class Board {
 				/*
 				 * if ((i+j)%2 == 0) g2.setColor(new Color(200,228,255)); else
 				 */
-
+/*
 				if (tablica[i][j] == ElementyPlanszy.POLE_PUSTE) {
 					g2.setColor(new Color(215, 230, 255));
 				} else if (tablica[i][j] == ElementyPlanszy.STATEK) {
@@ -288,7 +320,5 @@ public class Board {
 	@Override
 	public void update(Graphics g) {
 		paint(g);
-	}
-}
-
+	}	*/
 }
