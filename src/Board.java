@@ -11,9 +11,16 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Random;
 
+import javax.swing.JPanel;
 
-public class Board {
 
+public class Board extends JPanel{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private ElementyPlanszy[][] tablica = new ElementyPlanszy[15][15];
 
 //	private RodzajeGraczy wlascicielPlanszy;
@@ -49,7 +56,32 @@ public class Board {
 			
 			for(int j=0; j<15;j++)
 			{
-				if(tablica[i][j] == ElementyPlanszy.STATEK)
+				ElementyPlanszy strzal = tablica[j][i];
+				switch(strzal)
+				{
+				case STATEK_TRAFIONY:
+					System.out.print(" #");
+					break;
+					
+				case STATEK_ZATOPIONY:
+					System.out.print(" $");
+					break;
+					
+				case PUDLO:
+					System.out.print(" 0");
+					break;
+					
+				case STATEK:
+					System.out.print(" +");
+					break;
+					
+				default:
+					System.out.print(" -");
+					break;
+
+				}
+				/*
+				if(tablica[i][j] == ElementyPlanszy.STATEK_TRAFIONY)
 				{
 					System.out.print(" #");
 				}
@@ -57,7 +89,7 @@ public class Board {
 				{
 					System.out.print(" -");
 				}
-						
+				*/		
 			}
 			System.out.println(" ");
 		}
@@ -69,7 +101,7 @@ public class Board {
 	public void wyczyscPlansze() {
 		zerowanieTablicy();
 		drawBoard();
-//		repaint();
+		repaint();
 	}
 
 	public void rozkladLosowy() {
@@ -132,7 +164,7 @@ public class Board {
 				}
 		}
 		drawBoard();
-//		repaint();
+		repaint();
 	}
 
 	public WynikStrzalu sprawdzStrzal(int x, int y) {
@@ -154,10 +186,11 @@ public class Board {
 			tablica[x][y] = ElementyPlanszy.STATEK_TRAFIONY;
 
 			if (w == WynikStrzalu.TRAFIONY_ZATOPIONY) {
-//				zaznaczZatopiony(x, y);
+				zaznaczZatopiony(x, y);
 			}
 		}
-//		repaint();
+		drawBoard();
+		repaint();
 	}
 
 	private boolean sprawdzCzyZatopiony(int x, int y) {
@@ -187,7 +220,7 @@ public class Board {
 
 		return true;
 	}
-/*
+
 	private void zaznaczZatopiony(int x, int y) {
 		int x1 = x;
 		int x2 = x;
@@ -214,54 +247,19 @@ public class Board {
 			for (int j = y1; j <= y2; j++)
 				if (tablica[i][j] == ElementyPlanszy.STATEK_TRAFIONY)
 					tablica[i][j] = ElementyPlanszy.STATEK_ZATOPIONY;
-				else if (wlascicielPlanszy == RodzajeGraczy.PRZECIWNIK
-						&& tablica[i][j] == ElementyPlanszy.POLE_PUSTE) {
-					tablica[i][j] = ElementyPlanszy.PUSTE_AUTOMAT;
-				}
 	}
 
-	public Plansza(RodzajeGraczy wlasciciel) {
+	public Board() {
 		Dimension rozmiar = new Dimension(302, 302);
 		setSize(rozmiar);
 		setMinimumSize(rozmiar);
 		setMaximumSize(rozmiar);
 		setPreferredSize(rozmiar);
 
-		wlascicielPlanszy = wlasciciel;
-
 		zerowanieTablicy();
-		if (wlascicielPlanszy == RodzajeGraczy.GRACZ) {
-			rozkladLosowy();
-		}
-
-		addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				if (e.getButton() == MouseEvent.BUTTON1
-						&& wlascicielPlanszy == RodzajeGraczy.PRZECIWNIK
-						&& Statki.getInstance().hasToken()) {
-
-					Point p = e.getPoint();
-
-					if (p.x % 20 != 0 && p.x % 20 != 1 && p.y % 20 != 0
-							&& p.y % 20 != 1) {
-						int x = (p.x - 1) / 20;
-						int y = (p.y - 1) / 20;
-
-						if (tablica[x][y] == ElementyPlanszy.POLE_PUSTE) {
-							Statki.getInstance().setToken(false);
-							tablica[x][y] = ElementyPlanszy.ODDANY_STRZAL;
-							repaint();
-							GameEvent ge = new GameEvent(GameEvent.C_SHOT);
-							ge.setMessage(x + "|" + y);
-							Statki.getInstance().sendMessage(ge);
-						}
-					}
-				}
-			}
-		});
+		rozkladLosowy();
 	}
-
+	
 	@Override
 	public void paint(Graphics g) {
 		Image img = createImage(getSize().width, getSize().height);
@@ -279,7 +277,7 @@ public class Board {
 				/*
 				 * if ((i+j)%2 == 0) g2.setColor(new Color(200,228,255)); else
 				 */
-/*
+
 				if (tablica[i][j] == ElementyPlanszy.POLE_PUSTE) {
 					g2.setColor(new Color(215, 230, 255));
 				} else if (tablica[i][j] == ElementyPlanszy.STATEK) {
@@ -297,20 +295,6 @@ public class Board {
 				}
 
 				g2.fillRect(2 + 20 * i, 2 + 20 * j, 18, 18);
-
-				if (tablica[i][j] == ElementyPlanszy.ODDANY_STRZAL) {
-					g2.setFont(new Font("Dialog", Font.BOLD, 14));
-					g2.setColor(new Color(50, 50, 50));
-					g2.drawString("?", 7 + 20 * i, 16 + 20 * j);
-				} else if (tablica[i][j] == ElementyPlanszy.STATEK_TRAFIONY
-						|| tablica[i][j] == ElementyPlanszy.STATEK_ZATOPIONY) {
-					g2.setStroke(new BasicStroke(2.0f));
-					g2.setColor(new Color(50, 50, 50));
-					g2.drawLine(2 + 20 * i, 2 + 20 * j, 19 + 20 * i,
-							19 + 20 * j);
-					g2.drawLine(19 + 20 * i, 2 + 20 * j, 2 + 20 * i,
-							19 + 20 * j);
-				}
 			}
 		}
 
@@ -320,5 +304,5 @@ public class Board {
 	@Override
 	public void update(Graphics g) {
 		paint(g);
-	}	*/
+	}
 }
