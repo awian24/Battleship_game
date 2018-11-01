@@ -14,6 +14,8 @@ import java.util.Random;
 import javax.swing.JPanel;
 
 
+
+
 public class Board extends JPanel{
 
 	/**
@@ -36,7 +38,7 @@ public class Board extends JPanel{
 	private enum Kierunek {
 		POZIOMO, PIONOWO
 	}
-
+/*
 	public void drawBoard()
 	{
 
@@ -80,16 +82,7 @@ public class Board extends JPanel{
 					break;
 
 				}
-				/*
-				if(tablica[i][j] == ElementyPlanszy.STATEK_TRAFIONY)
-				{
-					System.out.print(" #");
-				}
-				else
-				{
-					System.out.print(" -");
-				}
-				*/		
+	
 			}
 			System.out.println(" ");
 		}
@@ -97,10 +90,10 @@ public class Board extends JPanel{
 		System.out.println("  ");
 		
 	}
-	
+*/	
 	public void wyczyscPlansze() {
 		zerowanieTablicy();
-		drawBoard();
+//		drawBoard();
 		repaint();
 	}
 
@@ -163,7 +156,7 @@ public class Board extends JPanel{
 					tablica[x][y + d] = ElementyPlanszy.STATEK;
 				}
 		}
-		drawBoard();
+//		drawBoard();
 		repaint();
 	}
 
@@ -189,7 +182,7 @@ public class Board extends JPanel{
 				zaznaczZatopiony(x, y);
 			}
 		}
-		drawBoard();
+//		drawBoard();
 		repaint();
 	}
 
@@ -258,6 +251,25 @@ public class Board extends JPanel{
 
 		zerowanieTablicy();
 		rozkladLosowy();
+		
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if (e.getButton() == MouseEvent.BUTTON1){
+					Point p = e.getPoint();
+
+					if (p.x % 20 != 0 && p.x % 20 != 1 && p.y % 20 != 0 && p.y % 20 != 1) {
+						int x = (p.x - 1) / 20;
+						int y = (p.y - 1) / 20;
+
+						WynikStrzalu strzal = sprawdzStrzal(x,y);
+						if((tablica[x][y] == ElementyPlanszy.POLE_PUSTE) || (tablica[x][y] == ElementyPlanszy.STATEK)) {
+							zaznaczStrzal(x, y, strzal);
+						}
+					}
+				}
+			}
+		});
 	}
 	
 	@Override
@@ -274,27 +286,37 @@ public class Board extends JPanel{
 
 		for (int i = 0; i < tablica.length; i++) {
 			for (int j = 0; j < tablica[i].length; j++) {
-				/*
-				 * if ((i+j)%2 == 0) g2.setColor(new Color(200,228,255)); else
-				 */
 
-				if (tablica[i][j] == ElementyPlanszy.POLE_PUSTE) {
+				if (tablica[i][j] == ElementyPlanszy.POLE_PUSTE)
+				{
 					g2.setColor(new Color(215, 230, 255));
-				} else if (tablica[i][j] == ElementyPlanszy.STATEK) {
-					g2.setColor(new Color(120, 160, 220));
-				} else if (tablica[i][j] == ElementyPlanszy.ODDANY_STRZAL) {
-					g2.setColor(new Color(255, 255, 196));
-				} else if (tablica[i][j] == ElementyPlanszy.STATEK_TRAFIONY) {
+				}
+				else if (tablica[i][j] == ElementyPlanszy.STATEK)
+				{
+					g2.setColor(new Color(215, 230, 255));
+				}
+				else if (tablica[i][j] == ElementyPlanszy.STATEK_TRAFIONY)
+				{
 					g2.setColor(new Color(120, 120, 200));
-				} else if (tablica[i][j] == ElementyPlanszy.PUDLO) {
+				}
+				else if (tablica[i][j] == ElementyPlanszy.PUDLO)
+				{
 					g2.setColor(new Color(170, 170, 170));
-				} else if (tablica[i][j] == ElementyPlanszy.STATEK_ZATOPIONY) {
+				}
+				else if (tablica[i][j] == ElementyPlanszy.STATEK_ZATOPIONY)
+				{
 					g2.setColor(new Color(220, 120, 120));
-				} else if (tablica[i][j] == ElementyPlanszy.PUSTE_AUTOMAT) {
-					g2.setColor(new Color(200, 200, 200));
 				}
 
 				g2.fillRect(2 + 20 * i, 2 + 20 * j, 18, 18);
+				
+				if (tablica[i][j] == ElementyPlanszy.STATEK_TRAFIONY || tablica[i][j] == ElementyPlanszy.STATEK_ZATOPIONY) 
+				{
+					g2.setStroke(new BasicStroke(2.0f));
+					g2.setColor(new Color(50, 50, 50));
+					g2.drawLine(2 + 20 * i, 2 + 20 * j, 19 + 20 * i, 19 + 20 * j);
+					g2.drawLine(19 + 20 * i, 2 + 20 * j, 2 + 20 * i, 19 + 20 * j);
+				}
 			}
 		}
 

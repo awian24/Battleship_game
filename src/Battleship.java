@@ -40,7 +40,7 @@ public class Battleship  extends JFrame{
 		}
 		return boardGame;
 	}
-	
+/*	
 	private void startGame()
 	{
 		DownloadSigns download = new DownloadSigns();
@@ -67,7 +67,7 @@ public class Battleship  extends JFrame{
 		}
 //		endGame();
 	}
-
+*/
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -75,7 +75,7 @@ public class Battleship  extends JFrame{
 		Battleship game = new Battleship();
 		game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		game.setVisible(true);
-		game.startGame();
+//		game.startGame();
 		System.out.println("KONIEC GRY");
 	}
 
