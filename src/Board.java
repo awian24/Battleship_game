@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 
 
 
+
 public class Board extends JPanel{
 
 	/**
@@ -219,6 +220,7 @@ public class Board extends JPanel{
 		int x2 = x;
 		int y1 = y;
 		int y2 = y;
+		int zat = 0;
 
 		while (x1 > 0 && tablica[x1][y] == ElementyPlanszy.STATEK_TRAFIONY) {
 			x1--;
@@ -237,9 +239,36 @@ public class Board extends JPanel{
 		}
 
 		for (int i = x1; i <= x2; i++)
+		{
 			for (int j = y1; j <= y2; j++)
+			{
 				if (tablica[i][j] == ElementyPlanszy.STATEK_TRAFIONY)
+				{
 					tablica[i][j] = ElementyPlanszy.STATEK_ZATOPIONY;
+					zat++;
+				}
+			}
+		}
+		switch (zat)
+		{
+			case 1:
+				Battleship.getInstance().setShipShot(1);
+			break;
+			case 2:
+				Battleship.getInstance().setShipShot(2);
+			break;
+			case 3:
+				Battleship.getInstance().setShipShot(3);
+			break;
+			case 4:
+				Battleship.getInstance().setShipShot(4);
+			break;
+			case 5:
+				Battleship.getInstance().setShipShot(5);
+			break;
+		}
+		
+		Battleship.getInstance().checkShip();
 	}
 
 	public Board() {
